@@ -2,8 +2,6 @@ import java.util.*;
 
 class Battleships {
     static char[][] map = new char[10][10];
-    static boolean playerSunk;
-    static boolean computerSunk;
     public static void main(String[] args) {
         System.out.println("**** Welcome to the Battle Ships game **** \n");
         System.out.println("Right now, the sea is empty. \n");
@@ -17,7 +15,10 @@ class Battleships {
             System.out.println(j + ". ship DEPLOYED");
         }
         oceanMap();
-        playerTurn();
+        for (int k = 1; k < 6; k++) {
+            playerTurn();
+            //computerTurn();
+        }
     }
 
     public static void oceanMap() {
@@ -47,14 +48,17 @@ class Battleships {
             try {
                 Scanner input = new Scanner(System.in); 
                 int choice = input.nextInt();
-                if (choice >= 0 || choice <= 9) {
+                if (choice >= 0 && choice <= 9) {
                     return choice;
                     }
+                else {
+                    throw new Exception();
                 }
+            }
             catch(Exception e) {
                 System.out.println("Please insert a value between 0 and 9.");
                 continue;
-                }
+            }
         }
     }
     public static int choiceY() {
@@ -69,11 +73,11 @@ class Battleships {
                 else {
                     throw new Exception();
                 }
-                }
+            }
             catch(Exception e) {
                 System.out.println("Please insert a value between 0 and 9.");
                 continue;
-                }
+            }
         }
     }
 
@@ -100,13 +104,16 @@ class Battleships {
     public static int playerTurnX() {
         System.out.println("YOUR TURN");
         System.out.println("Enter the X coordinate: ");
-        while(true) {
+         while(true) {
             try {
                 Scanner input = new Scanner(System.in); 
                 int choice = input.nextInt();
-                if (choice >= 0 || choice <= 9) {
+                if (choice >= 0 && choice <= 9) {
                     return choice;
                     }
+                else {
+                    throw new Exception();
+                }
                 }
             catch(Exception e) {
                 System.out.println("Please insert a value between 0 and 9.");
@@ -121,10 +128,13 @@ class Battleships {
             try {
                 Scanner input = new Scanner(System.in); 
                 int choice = input.nextInt();
-                if (choice >= 0 || choice <= 9) {
+                if (choice >= 0 && choice <= 9) {
                     return choice;
                     }
+                else {
+                    throw new Exception();
                 }
+            }
             catch(Exception e) {
                 System.out.println("Please insert a value between 0 and 9.");
                 continue;
@@ -136,18 +146,18 @@ class Battleships {
         int playerX = playerTurnX();
         int playerY = playerTurnY();
         if (map[playerX][playerY] == 1) {
+            map[playerX][playerY] = 3;
             System.out.println("You've sunk your own ship.");
-            // playerSunk = true;
         }
         else if (map[playerX][playerY] == 2) {
-            System.out.println("You've sunk the ship!");
-            // computerSunk = true;
+            map[playerX][playerY] = 3;
+            System.out.println("You've sunk an enemy ship!");
         }
         System.out.println("   0123456789");
         for (int row = 0; row < map.length; row++) {
                 System.out.print(row + " |");
                 for (int col = 0; col < map[row].length; col++) {
-                    if (map[row][col] == 1 && playerSunk) {
+                    if (map[row][col] == 3) {
                         System.out.print("X");
                     }
                     else if (map[row][col] == 1) {
@@ -155,9 +165,6 @@ class Battleships {
                     }
                     else if (map[row][col] == 2) {
                         System.out.print("^");
-                    }
-                    else if (map[row][col] == 2 & computerSunk) {
-                        System.out.print("X");
                     }
                     else {
                         System.out.print(" ");
