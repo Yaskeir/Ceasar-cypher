@@ -197,12 +197,31 @@ class Battleships {
             map[x][y] = 3;
             System.out.println("Oh no! The computer has hit your ship!");
             playerShips--;
-        }
+            System.out.println("   0123456789");
+            for (int row = 0; row < map.length; row++) {
+                    System.out.print(row + " |");
+                    for (int col = 0; col < map[row].length; col++) {
+                        if (map[row][col] == 3) {
+                            System.out.print("X");
+                        }
+                        else if (map[row][col] == 1) {
+                            System.out.print("@");
+                        }
+                        else if (map[row][col] == 2) {
+                            System.out.print("^");
+                        }
+                        else {
+                            System.out.print(" ");
+                        }
+                    }
+                    System.out.println("| " + row);
+            }
+            System.out.println("   0123456789");
+            System.out.println("Your ships: " + playerShips + " | Computer ships: " + computerShips);
+            }
         else {
             System.out.println("The computer has missed.");
         }
     }
 
 }
-
-// add map print after computer shot and terminate computer move after win condition has been reached, and improve AI maybe?
