@@ -2,6 +2,8 @@ import java.util.*;
 
 class Battleships {
     static char[][] map = new char[10][10];
+    static int playerShips = 5;
+    static int computerShips = 5;
     public static void main(String[] args) {
         System.out.println("**** Welcome to the Battle Ships game **** \n");
         System.out.println("Right now, the sea is empty. \n");
@@ -15,10 +17,12 @@ class Battleships {
             System.out.println(j + ". ship DEPLOYED");
         }
         oceanMap();
-        for (int k = 1; k < 6; k++) {
+        while(playerShips > 0 && computerShips > 0) {
             playerTurn();
-            //computerTurn();
+            computerTurn();
         }
+        if (computerShips == 0 && playerShips > 0) System.out.println("Congratulations! You have won."); 
+        else System.out.println("You have lost.");
     }
 
     public static void oceanMap() {
@@ -148,10 +152,16 @@ class Battleships {
         if (map[playerX][playerY] == 1) {
             map[playerX][playerY] = 3;
             System.out.println("You've sunk your own ship.");
+            playerShips--;
         }
         else if (map[playerX][playerY] == 2) {
             map[playerX][playerY] = 3;
             System.out.println("You've sunk an enemy ship!");
+            computerShips--;
+        }
+        else {
+            map[playerX][playerY] = 3;
+            System.out.println("You've missed.");
         }
         System.out.println("   0123456789");
         for (int row = 0; row < map.length; row++) {
@@ -173,7 +183,26 @@ class Battleships {
                 System.out.println("| " + row);
         }
         System.out.println("   0123456789");
+        System.out.println("Your ships: " + playerShips + " | Computer ships: " + computerShips);
     }
-    
+
+    public static void computerTurn() {
+        System.out.println("The computer is choosing the field of attack.");
+        int x = (int) (Math.random() * 9);
+        int y = (int) (Math.random() * 9);
+        while (map[x][y] == 2 || map[x][y] == 3) {
+            y = (int) Math.random() * 9;
+        }
+        if (map[x][y] == 1) {
+            map[x][y] = 3;
+            System.out.println("Oh no! The computer has hit your ship!");
+            playerShips--;
+        }
+        else {
+            System.out.println("The computer has missed.");
+        }
+    }
 
 }
+
+// add map print after computer shot and terminate computer move after win condition has been reached, and improve AI maybe?
