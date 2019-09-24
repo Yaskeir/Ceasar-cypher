@@ -62,7 +62,7 @@ class FractionCalculator {
             if (input.matches("[0-9]+")) valid = true;
             else valid = false;
         }
-        else if (input.length() == 1 && input.matches("[0-9]+")) {
+        else if (input.matches("[0-9]+")) {
             valid = true;
         }
         else {
