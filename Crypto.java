@@ -1,6 +1,7 @@
 import java.util.*;
 
 class Crypto {
+    
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Please provide a string for encryption: ");
